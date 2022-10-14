@@ -1,0 +1,111 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css');
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.section__navigation {
+  max-width: 14rem;
+}
+
+.section__navigation.collapsed {
+  max-width: 6rem;
+}
+
+.section__navigation.collapsed .navigation__link-title {
+  display: none;
+}
+
+.navigation__logo--text {
+  font-size: 1.8rem;
+}
+
+.navigation__box {
+  margin-left: 1.5rem;
+  align-items: start;
+}
+
+.section__navigation.collapsed .navigation__box {
+  align-items: center;
+  margin-left: 0px;
+}
+hr {
+  align-self: start;
+}
+
+.section__navigation.collapsed hr {
+  align-self: center;
+}
+
+.navigation__collapse-button {
+  transform: rotate(0deg);
+  transition: all 0.5ms ease-out;
+}
+
+.section__navigation.collapsed .navigation__collapse-button {
+  transform: rotate(-180deg);
+}
+
+.horizontal__line {
+  width: 98%;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.card {
+  border: 0;
+  /* box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
+  -ms-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1); */
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+  padding: 20px 40px;
+  margin-bottom: 10px;
+  border-radius: 30px !important;
+}
+
+
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    /* border-radius: 0.25rem; */
+}
+
+
+
+@media(max-width:2050px){
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1120px !important;
+  }
+}
+
+@media(max-width:1650px){
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 920px !important;
+  }
+}
+
+@media(max-width:1200px){
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 720px !important;
+  }
+}
+
+@media(max-width:1100px){
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 620px !important;
+  }
+}
