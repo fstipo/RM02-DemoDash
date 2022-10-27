@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Toast } from 'react-bootstrap'
 import { useFormik } from 'formik';
 import { dateFormat } from '../../../utils/utils';
+import "./Details.css"
 
 const Details = ({ userId }) => {
   const [userData, setUserData] = useState("");
@@ -135,11 +136,12 @@ const Details = ({ userId }) => {
             </div>
             <form className="file-upload" onSubmit={formik.handleSubmit}>
               <div className="row mb-1 gx-5">
-                <div className="col-xl-12 mb-1 mb-xxl-10">
+                <div className="col-xl-12 mb-1">
+
                   <div className="bg-secondary-soft px-4 py-3 rounded">
                     <div className="row g-3">
 
-                      <div className="col-md-12">
+                      <div className="h-col col-md-3">
                         <label htmlFor='id' className="form-label">ID</label>
                         <input
                           id="id"
@@ -152,7 +154,7 @@ const Details = ({ userId }) => {
                         />
                       </div>
 
-                      <div className="col-md-12">
+                      <div className="h-col col-md-3">
                         <label htmlFor='name' className="form-label">Name *</label>
                         <input
                           id="name"
@@ -167,7 +169,7 @@ const Details = ({ userId }) => {
                           <div className="error text-danger fw-bold">{formik.errors.name}</div>
                         ) : null}
                       </div>
-                      <div className="col-md-12">
+                      <div className="h-col col-md-3">
                         <label htmlFor='sector' className="form-label">Sector *</label>
                         <input
                           id='sector'
@@ -182,7 +184,8 @@ const Details = ({ userId }) => {
                           <div className="error text-danger fw-bold">{formik.errors.sector}</div>
                         ) : null}
                       </div>
-                      <div className="col-md-12">
+                      <div className="h-col col-md-6">
+                        {/* <div className="h-col col-md-12 col-sm-6"> */}
                         <label htmlFor='changed-at' className="form-label">Changed At</label>
                         <input
                           id='changed-at'
@@ -193,7 +196,8 @@ const Details = ({ userId }) => {
                           readOnly="readonly"
                         />
                       </div>
-                      <div className="col-md-12">
+                      <div className="h-col col-md-5">
+                        {/* <div className="h-col col-md-12 col-sm-5"> */}
                         <label htmlFor="original-revision" className="form-label">Original Revision</label>
                         <input
                           id="original-revision"

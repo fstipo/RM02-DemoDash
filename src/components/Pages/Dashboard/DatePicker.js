@@ -25,7 +25,6 @@ const DatePickerComponent = ({ history }) => {
         setFilterHistory(filterData);
     }
 
-
     return (
         <>
             <tr>

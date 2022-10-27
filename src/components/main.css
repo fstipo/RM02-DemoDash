@@ -15,3 +15,7 @@ body{
 element {
   height: 90% !important;
 }
+
+.btn-dates{
+text-align: center;
+}
