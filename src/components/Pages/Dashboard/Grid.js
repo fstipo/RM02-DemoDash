@@ -134,6 +134,7 @@ const Grid = (props) => {
           gridOptions={gridOptions}
           rowSelection="single"
           animateRows="true"
+          id={userId}
         ></AgGridReact>
 
       </div>

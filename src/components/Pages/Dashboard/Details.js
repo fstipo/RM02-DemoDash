@@ -231,7 +231,7 @@ const Details = ({ userId }) => {
           </div>
         </div>
         <div>
-          {showHistory && <History history={userHistory} />}
+          {showHistory && <History history={userHistory} id={userId} />}
         </div>
       </div >
     </>
