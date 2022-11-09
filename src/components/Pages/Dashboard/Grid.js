@@ -115,7 +115,7 @@ const Grid = (props) => {
 
         <Link
           to="/create-user"
-          className="d-block align-items-start p-2 mx-4"
+          className="btn btn-primary d-block align-items-start mb-2"
           role="button"
           type="button"
         >

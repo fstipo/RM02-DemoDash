@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import DatePickerTest from './DatePickerTest';
 import DatePicker2Dates from './DatePicker2Dates';
 
-const TableSelectDatesRow = ({ id, onSave, onGetData }) => {
+const TableSelectDatesRow = ({ id, onSave, onGetData, onSelectDatesData }) => {
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [inputLabel, setInputLabel] = useState("all");
 
@@ -26,9 +26,10 @@ const TableSelectDatesRow = ({ id, onSave, onGetData }) => {
         onSave(inputLabel)
     }
 
-    const getMomentDataHandler = (data) => onGetData(data)
+    const getMomentDataHandler = (data) => onGetData(data);
+    const getSelectDatesDataHandler = (data) => onSelectDatesData(data);
 
-    const choseDatePicker = inputLabel === "in-moment" ? <DatePickerTest id={id} onSave={getMomentDataHandler} /> : <DatePicker2Dates />
+    const choseDatePicker = inputLabel === "in-moment" ? <DatePickerTest id={id} onSave={getMomentDataHandler} /> : <DatePicker2Dates id={id} onSave={getSelectDatesDataHandler} />
 
     return (
 

@@ -10,7 +10,6 @@ const DatePickerTest = ({ id, onSave }) => {
 
     const getDataHandler = () => {
         setNewData(getData(id, date.toISOString(), setNewData))
-        console.log("Spremla ja");
     };
 
     useEffect(() => {
@@ -31,7 +30,6 @@ const DatePickerTest = ({ id, onSave }) => {
                     onCalendarClose={
                         getDataHandler
                     }
-
                     isClearable
                     showTimeSelect
                     dateFormat="d.MM.yyyy H:mm"
@@ -56,8 +54,3 @@ export default DatePickerTest
 
 
 
-{/* <tbody>
-{newData ? newData.map((el, index) => <tr key={index + 1}>
-    {Object.entries(el).map(([key, value], index) => <td key={index + 1}>{value}</td>)}
-</tr>) : null}
-</tbody> */}
