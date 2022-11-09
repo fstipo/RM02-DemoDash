@@ -12,7 +12,8 @@ export const getData = (id, date, fn) => {
     const url = `https://es-demo.azurewebsites.net/v1/People/${id}/history?inMoment=${date}`
     axios(url)
         .then(res => {
+            res.data.map(el => el.changedAt = dateFormat(el.changedAt))
             fn(res.data);
         })
-        .catch(err => console.log(err))
+        .catch(err => console.error(err))
 }

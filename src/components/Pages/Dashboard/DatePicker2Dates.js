@@ -6,7 +6,7 @@ const DatePicker2Dates = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     return (
-        <div className='d-flex justify-content-center align-items-center'>
+        <div className='d-flex justify-content-end align-items-center'>
             <div className='d-flex'>
                 <label className='me-2'>Start:</label>
                 <DatePicker
