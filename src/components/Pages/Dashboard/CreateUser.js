@@ -77,7 +77,7 @@ const CreateUser = () => {
     <>
       <Header name="Create User" icon="person-plus" />
 
-      <div className="container">
+      <div className="container card">
         <div className="row ms-5">
           <div className="col-12">
             <div className='position-relative me-5'>

@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom';
 import { Toast } from 'react-bootstrap'
 import { useFormik } from 'formik';
 import { dateFormat } from '../../../utils/utils';
-import "./Details.css"
+
+import HistoryCopy from './HistoryCopy';
+
 
 const Details = ({ userId }) => {
   const [userData, setUserData] = useState("");
@@ -231,7 +233,8 @@ const Details = ({ userId }) => {
           </div>
         </div>
         <div>
-          {showHistory && <History history={userHistory} id={userId} />}
+          {/* {showHistory && <History history={userHistory} id={userId} />} */}
+          {showHistory && <HistoryCopy history={userHistory} id={userId} />}
         </div>
       </div >
     </>

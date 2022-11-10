@@ -1,22 +1,61 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
-import Moment from 'moment';
 import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-import axios from 'axios';
-import Modal from '../../UI/Modal';
+import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import NoPage from '../NoPage';
-import { useNavigate } from "react-router-dom";
+import Moment from 'moment';
+import axios from 'axios';
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
+const gridColumns = [
+  {
+    field: 'id',
+    sortable: 'true',
+    filter: 'true',
+    headerTooltip: 'User id',
+    resizable: true,
+    // width: 90,
+  },
+  {
+    headerName: 'Full Name',
+    field: 'name',
+    sortable: 'true',
+    filter: 'true',
+    headerTooltip: 'Name',
+    resizable: true,
+  },
+  {
+    field: 'sector',
+    sortable: 'true',
+    filter: 'true',
+    headerTooltip: 'Sector',
+    resizable: true,
+  },
+  {
+    field: 'changedAt',
+    sortable: 'true',
+    filter: 'true',
+    headerTooltip: 'Changed at',
+    resizable: true,
+  },
+  {
+    field: 'originalRevision',
+    sortable: 'true',
+    filter: 'true',
+    headerTooltip: 'Original Revision',
+    resizable: true,
+  },
+
+];
 
 const Grid = (props) => {
-  const [showModal, setShowModal] = useState(false);
-  const [selectedUser, setSelectedUser] = useState('');
   const [userId, setUserId] = useState("");
   const [userData, setUserData] = useState("");
   const [error, setError] = useState(false);
   const [errorObj, setErrorObj] = useState({});
+  const [columnDefs] = useState(gridColumns);
+  const gridRef = useRef(null);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -44,72 +83,13 @@ const Grid = (props) => {
     }
   };
 
-  const gridRef = useRef(null);
-
-
-  const gridColumns = [
-    {
-      field: 'id',
-      sortable: 'true',
-      filter: 'true',
-      headerTooltip: 'User id',
-      resizable: true,
-      width: 90,
-    },
-    {
-      headerName: 'Full Name',
-      field: 'name',
-      sortable: 'true',
-      filter: 'true',
-      headerTooltip: 'Name',
-      resizable: true,
-    },
-    {
-      field: 'sector',
-      sortable: 'true',
-      filter: 'true',
-      headerTooltip: 'Sector',
-      resizable: true,
-    },
-    {
-      field: 'changedAt',
-      sortable: 'true',
-      filter: 'true',
-      headerTooltip: 'Changed at',
-      resizable: true,
-    },
-    {
-      field: 'originalRevision',
-      sortable: 'true',
-      filter: 'true',
-      headerTooltip: 'Original Revision',
-      resizable: true,
-    },
-
-  ];
-  const [columnDefs] = useState(gridColumns);
-
-
 
   const gridOptions = {
     pagination: true,
     paginationAutoPageSize: true,
   };
 
-  const modalHandler = () => {
-    const selectedNode = gridRef.current.api.getSelectedNodes();
-
-    if (selectedNode.length) {
-      const selectedData = selectedNode.map((node) => node.data);
-      setSelectedUser(selectedData[0]);
-      setSelectedUser((state) => {
-        setShowModal(true);
-        return state;
-      });
-    }
-  };
-
-  const htmlTemplate = <div className="container d-flex flex-column">
+  const htmlTemplate = <div className="container d-flex flex-column card">
     <div>
       <div className="d-flex">
 
@@ -143,13 +123,7 @@ const Grid = (props) => {
 
   return (
     <>
-      <Modal
-        data={selectedUser}
-        show={showModal}
-        onHide={() => setShowModal(false)}
-      />
       {error ? <NoPage error={errorObj.status} /> : htmlTemplate}
-
     </>
   );
 };
