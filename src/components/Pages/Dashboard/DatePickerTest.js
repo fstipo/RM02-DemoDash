@@ -16,24 +16,24 @@ const DatePickerTest = ({ id, onSave }) => {
     }, [newData])
 
     return (
-        <>
-            <div className='text-end' >
-                <DatePicker
-                    className='date-picker'
-                    selected={date}
-                    onChange={(date) => {
-                        setDate(date)
-                    }}
-                    onCalendarClose={
-                        getDataHandler
-                    }
-                    isClearable
-                    showTimeSelect
-                    dateFormat="d.MM.yyyy H:mm"
-                    placeholderText="I have been cleared!"
-                />
-            </div>
-        </>
+
+        <div className='text-end d-flex' >
+            <DatePicker
+                className='date-picker'
+                selected={date}
+                onChange={(date) => {
+                    setDate(date)
+                }}
+                onCalendarClose={
+                    getDataHandler
+                }
+                isClearable
+                showTimeSelect
+                dateFormat="d.MM.yyyy H:mm"
+                placeholderText="I have been cleared!"
+            />
+        </div>
+
     )
 }
 
