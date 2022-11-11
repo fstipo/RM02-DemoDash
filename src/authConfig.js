@@ -14,42 +14,42 @@ export const msalConfig = {
     auth: {
         //clientId: "Enter_the_Application_Id_Here",
         clientId: "10bfa995-1bf9-4f42-be8a-ffb253a776fb",
-        authority:"https://entityservicesdev.b2clogin.com/tfp/entityservicesdev.onmicrosoft.com/B2C_1_ES_CMD_TEST",
+        authority: "https://entityservicesdev.b2clogin.com/tfp/entityservicesdev.onmicrosoft.com/B2C_1_ES_CMD_TEST",
         redirectUri: "http://localhost:3000",
-        knownAuthorities:["entityservicesdev.b2clogin.com"],
+        knownAuthorities: ["entityservicesdev.b2clogin.com"],
         postLogoutRedirectUri: "/",
-        navigateToLoginRequestUrl: false, 
+        navigateToLoginRequestUrl: false,
     },
     cache: {
         cacheLocation: "sessionStorage", // This configures where your cache will be stored
         storeAuthStateInCookie: false, // Set this to "true" if you are having issues on IE11 or Edge
     },
-    system: {	
-        loggerOptions: {	
-            loggerCallback: (level, message, containsPii) => {	
-                if (containsPii) {		
-                    return;		
-                }		
-                switch (level) {		
-                    case LogLevel.Error:		
-                        console.error(message);		
-                        return;		
-                    case LogLevel.Info:		
-                        console.info(message);		
-                        return;		
-                    case LogLevel.Verbose:		
-                        console.debug(message);		
-                        return;		
-                    case LogLevel.Warning:		
-                        console.warn(message);		
-                        return;		
-                }	
-            }	
-        }	
+    system: {
+        loggerOptions: {
+            loggerCallback: (level, message, containsPii) => {
+                if (containsPii) {
+                    return;
+                }
+                switch (level) {
+                    case LogLevel.Error:
+                        console.error(message);
+                        return;
+                    case LogLevel.Info:
+                        console.info(message);
+                        return;
+                    case LogLevel.Verbose:
+                        console.debug(message);
+                        return;
+                    case LogLevel.Warning:
+                        console.warn(message);
+                        return;
+                }
+            }
+        }
     }
 };
 
-/**
+/*
  * Scopes you add here will be prompted for user consent during sign-in.
  * By default, MSAL.js will add OIDC scopes (openid, profile, email) to any login request.
  * For more information about OIDC scopes, visit: 
@@ -59,7 +59,7 @@ export const loginRequest = {
     scopes: []
 };
 
-/**
+/*
  * Add here the scopes to request when obtaining an access token for MS Graph API. For more information, see:
  * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/resources-and-scopes.md
  */

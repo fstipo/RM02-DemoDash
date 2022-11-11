@@ -1,18 +1,13 @@
 import React, { useState } from 'react'
-import TableSelectDatesRow from './TableSelectDatesRow'
-import "../../main.css"
-
-import { gridColumnsTemplate } from './MyGRID/gridColumns';
-
-// NEW TABLE
+import FilterHistory from './FilterHistory'
 import { AgGridReact } from 'ag-grid-react';
+import { gridColumnsTemplate } from "../../../gridColumnsTemplate"
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
 const gridColumns = gridColumnsTemplate;
 
-
-const History = ({ history, id }) => {
+const DetailsHistory = ({ history, id }) => {
     const [saveOption, setSaveOption] = useState("all")
     const [momentData, setMomentData] = useState("");
     const [selectDatesData, setSelectDatesData] = useState("");
@@ -63,9 +58,8 @@ const History = ({ history, id }) => {
 
     return (
         <>
-            {/* <div className='display-4 text-danger text-center'>HISTORY COPY</div> */}
             <div className='border p-3 mt-2'>
-                <TableSelectDatesRow onSave={getOptionHandler} id={id} onGetData={getMomentDataHandler} onSelectDatesData={getSelectDatesDataHandler} />
+                <FilterHistory onSave={getOptionHandler} id={id} onGetData={getMomentDataHandler} onSelectDatesData={getSelectDatesDataHandler} />
             </div>
             <div className='table-responsive pt-1'>
                 {tableTemplate}
@@ -74,6 +68,6 @@ const History = ({ history, id }) => {
     );
 }
 
-export default History;
+export default DetailsHistory;
 
 

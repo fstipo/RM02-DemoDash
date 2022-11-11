@@ -8,6 +8,7 @@ body {
   font-family: 'Roboto', sans-serif;
   overflow: hidden;
   box-sizing: border-box;
+  overflow-y: auto;
 }
 
 .section__navigation {
@@ -108,4 +109,22 @@ hr {
   .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
     max-width: 620px !important;
   }
+}
+
+.sidebarP {
+  max-width: 14rem;
+  background-color: black;
+}
+
+.ag-root-wrapper {
+  cursor: pointer;
+}
+
+
+element {
+  height: 90% !important;
+}
+
+.btn-dates{
+text-align: center;
 }

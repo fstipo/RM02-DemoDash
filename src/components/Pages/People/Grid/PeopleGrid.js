@@ -2,54 +2,16 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
-import NoPage from '../NoPage';
+import NoPage from '../../NoPage';
 import Moment from 'moment';
 import axios from 'axios';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
-const gridColumns = [
-  {
-    field: 'id',
-    sortable: 'true',
-    filter: 'true',
-    headerTooltip: 'User id',
-    resizable: true,
-    // width: 90,
-  },
-  {
-    headerName: 'Full Name',
-    field: 'name',
-    sortable: 'true',
-    filter: 'true',
-    headerTooltip: 'Name',
-    resizable: true,
-  },
-  {
-    field: 'sector',
-    sortable: 'true',
-    filter: 'true',
-    headerTooltip: 'Sector',
-    resizable: true,
-  },
-  {
-    field: 'changedAt',
-    sortable: 'true',
-    filter: 'true',
-    headerTooltip: 'Changed at',
-    resizable: true,
-  },
-  {
-    field: 'originalRevision',
-    sortable: 'true',
-    filter: 'true',
-    headerTooltip: 'Original Revision',
-    resizable: true,
-  },
+import { gridColumnsTemplate } from "../gridColumnsTemplate"
+const gridColumns = gridColumnsTemplate;
 
-];
-
-const Grid = (props) => {
+const PeopleGrid = (props) => {
   const [userId, setUserId] = useState("");
   const [userData, setUserData] = useState("");
   const [error, setError] = useState(false);
@@ -78,11 +40,10 @@ const Grid = (props) => {
       const selectedData = selectedNode.map((node) => node.data);
       props.onSaveId(selectedData[0].id);
       window.localStorage.setItem("MY_TABLE_ID", JSON.stringify(selectedData[0].id))
-      navigate(`/details/id/${selectedData[0].id}`, { replace: true });
+      navigate(`/people/details/${selectedData[0].id}`, { replace: true });
       setUserId(() => selectedData[0].id)
     }
   };
-
 
   const gridOptions = {
     pagination: true,
@@ -92,9 +53,8 @@ const Grid = (props) => {
   const htmlTemplate = <div className="container d-flex flex-column card">
     <div>
       <div className="d-flex">
-
         <Link
-          to="/create-user"
+          to="/people/create-user"
           className="btn btn-primary d-block align-items-start mb-2"
           role="button"
           type="button"
@@ -104,9 +64,8 @@ const Grid = (props) => {
       </div>
       <div
         className="bg-info ag-theme-alpine"
-        style={{ height: 700, width: '100%' }}
+        style={{ height: 600, width: '100%' }}
       >
-
         <AgGridReact
           ref={gridRef}
           rowData={userData}
@@ -116,7 +75,6 @@ const Grid = (props) => {
           animateRows="true"
           id={userId}
         ></AgGridReact>
-
       </div>
     </div>
   </div>
@@ -128,4 +86,4 @@ const Grid = (props) => {
   );
 };
 
-export default Grid;
+export default PeopleGrid;

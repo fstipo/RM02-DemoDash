@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../../UI/Header';
+import Header from '../../../../UI/Header';
 import Moment from "moment"
-import History from './History';
 import { Link } from 'react-router-dom';
 import { Toast } from 'react-bootstrap'
 import { useFormik } from 'formik';
-import { dateFormat } from '../../../utils/utils';
+import { dateFormat } from '../../../../../utils/utils';
 
-import HistoryCopy from './HistoryCopy';
+import PeopleHistory from './History/DetailsHistory';
 
 
-const Details = ({ userId }) => {
+const PeopleDetails = ({ userId }) => {
   const [userData, setUserData] = useState("");
   const [showHistory, setShowHistory] = useState(false);
   const [userHistory, setUserHistory] = useState("");
@@ -112,7 +111,6 @@ const Details = ({ userId }) => {
   return (
     <>
       <Header name="Details" icon="cloud-download" />
-
       <div className="container card">
         <div className="row ms-5">
           <div className="col-12">
@@ -155,7 +153,6 @@ const Details = ({ userId }) => {
                           readOnly="readonly"
                         />
                       </div>
-
                       <div className="h-col col-md-3">
                         <label htmlFor='name' className="form-label">Name *</label>
                         <input
@@ -212,7 +209,6 @@ const Details = ({ userId }) => {
                       </div>
                     </div>
                   </div>
-
                   <div className="gap-5 d-flex justify-content-center text-center" >
                     <button type="button" className="btn btn-outline-danger" onClick={deleteHandler} >
                       Delete
@@ -223,7 +219,7 @@ const Details = ({ userId }) => {
                     <button type="button" className="btn btn-outline-secondary" onClick={historyHandler} history={userHistory}>
                       History
                     </button>
-                    <Link type="button" className="btn btn-outline-secondary" to={"/dashboard"}>
+                    <Link type="button" className="btn btn-outline-secondary" to={"/people"}>
                       Back
                     </Link>
                   </div>
@@ -233,12 +229,11 @@ const Details = ({ userId }) => {
           </div>
         </div>
         <div>
-          {/* {showHistory && <History history={userHistory} id={userId} />} */}
-          {showHistory && <HistoryCopy history={userHistory} id={userId} />}
+          {showHistory && <PeopleHistory history={userHistory} id={userId} />}
         </div>
       </div >
     </>
   );
 };
 
-export default Details;
+export default PeopleDetails;

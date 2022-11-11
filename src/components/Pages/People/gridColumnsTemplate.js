@@ -5,7 +5,6 @@ export const gridColumnsTemplate = [
         filter: 'true',
         headerTooltip: 'User id',
         resizable: true,
-        // width: 90,
     },
     {
         headerName: 'Full Name',

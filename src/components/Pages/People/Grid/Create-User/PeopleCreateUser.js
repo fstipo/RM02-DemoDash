@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
-import Header from '../../UI/Header';
 import { Link } from 'react-router-dom';
 import { Toast } from 'react-bootstrap'
 import { useFormik } from 'formik';
+import Header from '../../../../UI/Header';
 
-
-
-// const onSubmit = (values) => console.log('Form data:', values);
-const CreateUser = () => {
-  // const [userName, setUserName] = useState("");
-  // const [userID, setUserID] = useState("");
-  // const [userSector, setUserSector] = useState("");
+const PeopleCreateUser = () => {
   const [showCreateUserToast, setShowCreateUserToast] = useState(false);
   const showCreateUserToastHandler = () => setShowCreateUserToast(!showCreateUserToast);
 
@@ -32,12 +26,6 @@ const CreateUser = () => {
         errors.name = 'Required';
       }
 
-      // if (!values.email) {
-      //   errors.email = 'Required';
-      // } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-      //   errors.email = 'Invalid email format';
-      // }
-
       if (!values.sector) {
         errors.sector = 'Required';
       }
@@ -46,14 +34,10 @@ const CreateUser = () => {
     },
     // validateSchema,
     onSubmit: (values) => {
-      // const userID = Math.floor(Math.random() * 1000000).toString();
-
       let newUser = {
         "id": values.id.toString(),
-        // "id": "string",
         "name": values.name,
         "sector": values.sector,
-        // "originalRevision": "string"
       }
       console.log(`NEW USER: id=${values.id}, name=${values.name}, sector=${values.sector}`);
       let options = {
@@ -76,10 +60,9 @@ const CreateUser = () => {
   return (
     <>
       <Header name="Create User" icon="person-plus" />
-
       <div className="container card">
-        <div className="row ms-5">
-          <div className="col-12">
+        <div className="row justify-content-center align-items-center">
+          <div className="col-8  ">
             <div className='position-relative me-5'>
               <Toast show={showCreateUserToast} onClose={showCreateUserToastHandler} delay={3000} autohide bg="primary text-white" className='position-absolute'>
                 <Toast.Header className='fs-6'>
@@ -91,14 +74,14 @@ const CreateUser = () => {
               </Toast>
             </div>
             <form className="file-upload" onSubmit={formik.handleSubmit}>
-              <div className="row mb-5 gx-5">
-                <div className="col-xl-8 mb-5 mb-xxl-10">
+              <div className="row my-2 gx-5">
+                <div className="mb-2">
                   <div className="bg-secondary-soft px-4 py-3 rounded">
-                    <div className="row g-3">
-                      <h4 className="mb-4 mt-0">
+                    <div className="row g-4">
+                      <h4 className="fw-bold">
                         User details
                       </h4>
-                      <div className="col-md-12">
+                      <div >
                         <label htmlFor="id" className="form-label">ID *</label>
                         <input
                           id="id"
@@ -107,27 +90,20 @@ const CreateUser = () => {
                           className="form-control"
                           placeholder=""
                           aria-label="ID"
-                          // readOnly="readonly"
-                          // onChange={userIDHandler}
-                          // onChange={formik.handleChange}
-                          // value={formik.values.name}
-                          // onBlur={formik.handleBlur}
                           {...formik.getFieldProps('id')}
                         />
                         {formik.touched.id && formik.errors.id ? (
                           <div className="error text-danger fw-bold">{formik.errors.id}</div>
                         ) : null}
                       </div>
-
-                      <div className="col-md-12">
+                      <div>
                         <label htmlFor="name" className="form-label">Name *</label>
                         <input
                           id="name"
                           name="name"
                           type="text"
-                          className="form-control mb-3"
+                          className="form-control"
                           aria-label="Name"
-                          // onChange={userNameHandler}
                           {...formik.getFieldProps('name')}
                         />
                         {formik.touched.name && formik.errors.name ? (
@@ -135,7 +111,7 @@ const CreateUser = () => {
                         ) : null}
                       </div>
 
-                      <div className="col-md-12">
+                      <div>
                         <label htmlFor="sector" className="form-label">Sector *</label>
                         <input
                           id='sector'
@@ -143,42 +119,19 @@ const CreateUser = () => {
                           type="text"
                           className="form-control"
                           aria-label="Sector"
-                          // onChange={userSectorHandler}
                           {...formik.getFieldProps('sector')}
                         />
                         {formik.touched.sector && formik.errors.sector ? (
                           <div className="error text-danger fw-bold">{formik.errors.sector}</div>
                         ) : null}
                       </div>
-                      <div className="col-md-12">
-                        <label className="form-label">Changed At</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          aria-label="Date and time"
-                          readOnly="readonly"
-                        />
-                      </div>
-                      <div className="col-md-12">
-                        <label className="form-label">Original Revision</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder=""
-                          aria-label="Original Revision"
-                          readOnly="readonly"
-                        />
-                      </div>
-                      {/* <button type="button" className="btn btn-primary btn-lg" onClick={createUserHandler} > */}
-                      {/* <button type="submit" className="btn btn-primary btn-lg" onClick={createUserHandler} > */}
                       <button type="submit" className="btn btn-primary btn-lg">
                         Create user
                       </button>
-                      <Link type="button" className="btn btn-primary btn-lg" to={"/dashboard"}>
+                      <Link type="button" className="btn btn-primary btn-lg" to={"/people"}>
                         Back
                       </Link>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -190,4 +143,4 @@ const CreateUser = () => {
   );
 };
 
-export default CreateUser;
+export default PeopleCreateUser;
