@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import { getData } from '../../../../../../utils/utils';
+// import { getData } from '../../../../../../utils/utils';
+import { getData } from '../../../../utils/utils';
 
 const InMomentFilterHistory = ({ id, onSave }) => {
     const [date, setDate] = useState(new Date());
@@ -31,6 +32,7 @@ const InMomentFilterHistory = ({ id, onSave }) => {
                     dateFormat="d.MM.yyyy H:mm"
                     placeholderText=" Select date"
                     isClearable
+                // locale={fi}
                 />
             </div>
         </div>

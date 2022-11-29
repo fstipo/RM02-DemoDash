@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import FilterHistory from './FilterHistory'
 import { AgGridReact } from 'ag-grid-react';
-import { gridColumnsTemplate } from "../../../gridColumnsTemplate"
+import { gridColumnsTemplate } from "../../data/gridColumnsTemplate"
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 

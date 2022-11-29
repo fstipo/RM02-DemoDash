@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMsal } from "@azure/msal-react";
-import { loginRequest } from "../../authConfig";
+import { loginRequest } from "./authConfig";
 import Button from "react-bootstrap/Button";
 import { EventType } from "@azure/msal-browser"
 

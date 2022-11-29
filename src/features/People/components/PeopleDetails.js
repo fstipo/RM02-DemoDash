@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../../../../UI/Header';
+import Header from '../../../components/UI/Header';
 import Moment from "moment"
 import { Link } from 'react-router-dom';
 import { Toast } from 'react-bootstrap'
 import { useFormik } from 'formik';
-import { dateFormat } from '../../../../../utils/utils';
+import { dateFormat } from '../../../utils/utils';
 
 import PeopleHistory from './History/DetailsHistory';
 

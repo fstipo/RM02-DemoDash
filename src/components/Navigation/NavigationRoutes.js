@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from '../Pages/Home';
-import Projects from '../Pages/Projects';
-import People from '../Pages/People';
-import Products from '../Pages/Products';
-import Customers from '../Pages/Customers';
-import Assets from '../Pages/Assets';
-import PeopleDetails from "../Pages/People/Grid/Details/PeopleDetails"
+import Home from '../../features/Home';
+import Projects from '../../features/Projects';
+import People from '../../features/People/components/People';
+import Products from '../../features/Products';
+import Customers from '../../features/Customers';
+import Assets from '../../features/Assets';
+import PeopleDetails from "../../features/People/components/PeopleDetails"
 import PeopleCreateUser from '../Pages/People/Grid/Create-User/PeopleCreateUser';
 export const dataContext = React.createContext();
 

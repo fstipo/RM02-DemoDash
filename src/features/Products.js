@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../UI/Header';
+import Header from '../components/UI/Header';
 
 const Products = () => {
   return <Header name="Products" icon="grid" />;

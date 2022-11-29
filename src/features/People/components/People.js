@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '../UI/Header';
-import PeopleGrid from "./People/Grid/PeopleGrid"
+import Header from '../../../components/UI/Header';
+import PeopleGrid from "./PeopleGrid"
 
 
 const People = (props) => {

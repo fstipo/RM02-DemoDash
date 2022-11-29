@@ -8,7 +8,7 @@ import axios from 'axios';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
-import { gridColumnsTemplate } from "../gridColumnsTemplate"
+import { gridColumnsTemplate } from "../data/gridColumnsTemplate"
 const gridColumns = gridColumnsTemplate;
 
 const PeopleGrid = (props) => {
@@ -64,7 +64,7 @@ const PeopleGrid = (props) => {
       </div>
       <div
         className="bg-info ag-theme-alpine"
-        style={{ height: 600, width: '100%' }}
+        style={{ height: 700, width: '100%' }}
       >
         <AgGridReact
           ref={gridRef}

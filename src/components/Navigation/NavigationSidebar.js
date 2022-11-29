@@ -1,7 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SignInButton } from '../Auth/SignInButton'; import { useIsAuthenticated } from '@azure/msal-react'; import '../../App.css'; import NavigationLink from '../UI/NavigationLink';
-import { SignOutButton } from '../Auth/SignOutButton';
+// import { SignInButton } from '../Auth/SignInButton';
+import { useIsAuthenticated } from '@azure/msal-react';
+import '../../App.css';
+import NavigationLink from '../UI/NavigationLink';
+// import { SignOutButton } from '../../auth/SignOutButton';
+import { SignInButton } from '../../auth/SignInButton';
+import { SignOutButton } from '../../auth/SignOutButton';
 
 const NavigationSidebar = () => {
   const isAuthenticated = useIsAuthenticated();
