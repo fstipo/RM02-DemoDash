@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Toast } from 'react-bootstrap'
 import { useFormik } from 'formik';
-import Header from '../../../../UI/Header';
+import Header from '../../../../components/UI/Header';
 
 const PeopleCreateUser = () => {
   const [showCreateUserToast, setShowCreateUserToast] = useState(false);
