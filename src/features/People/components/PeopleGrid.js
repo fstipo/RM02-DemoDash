@@ -29,10 +29,12 @@ const PeopleGrid = (props) => {
     data: people,
     error,
     isError,
-  } = useQuery("people", getPeople);
+  } = useQuery("people", getPeople, {
+    select: people => people.map(el => { return { ...el, changedAt: Moment(el.changedAt).format(" MMM Do YYYY, h:mm:ss a") } })
+  });
 
-  console.log(people.map(el => el.changedAt = Moment(el.changedAt).format('DD.MM.YYYY, h:mm:ss A')));
-  console.log(people);
+  // console.log(people.map(el => el.changedAt = Moment(el.changedAt).format('DD.MM.YYYY, h:mm:ss A')));
+  // console.log(people);
 
   // const peopleData = people.map(el =)
 
@@ -128,6 +130,6 @@ export default PeopleGrid;
   //  1. Make axios API
   //  2. GET data
   //  3. ERRor message
-  // TODO 4. Date Form
+  // 4. Date Form
   // TODO 5. Select user
   // TODO 6. Make react component
