@@ -3,13 +3,14 @@ import { AgGridReact } from 'ag-grid-react';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import NoPage from '../../NoPage';
-// import Moment from 'moment';
+import Moment from 'moment';
 // import axios from 'axios';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import { gridColumnsTemplate } from "../data/gridColumnsTemplate"
-import { useFetchData } from '../../../hooks/useFetchData';
 
+import { useQuery } from 'react-query';
+import { getPeople } from '../../../api/apiPeople';
 
 
 const gridColumns = gridColumnsTemplate;
@@ -23,11 +24,27 @@ const PeopleGrid = (props) => {
   const gridRef = useRef(null);
   const navigate = useNavigate();
 
-  const isTempError = err => err.message
-  const { isLoading, isError, data, error } = useFetchData()
-  const userData = data?.data?.map(res => res);
+  const {
+    isLoading,
+    data: people,
+    error,
+    isError,
+  } = useQuery("people", getPeople);
+
+  console.log(people.map(el => el.changedAt = Moment(el.changedAt).format('DD.MM.YYYY, h:mm:ss A')));
+  console.log(people);
+
+  // const peopleData = people.map(el =)
+
+  // ! TEST FOR format
 
 
+  // useEffect(() => {
+  //   console.log(people.map(el => el.changedAt))
+  // }, [])
+
+
+  // console.log(people);
 
 
 
@@ -43,24 +60,6 @@ const PeopleGrid = (props) => {
   //       setErrorObj(err.response);
   //     });
   // }, [userData, error])
-
-
-  // 1. ERRor message
-  // 2. Date Form
-  // 3. Select user
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -81,7 +80,7 @@ const PeopleGrid = (props) => {
     paginationAutoPageSize: true,
   };
 
-  const htmlTemplate = userData ? <div className="container d-flex flex-column card">
+  const htmlTemplate = people ? <div className="container d-flex flex-column card">
     <div>
       <div className="d-flex">
         <Link
@@ -99,7 +98,7 @@ const PeopleGrid = (props) => {
       >
         <AgGridReact
           ref={gridRef}
-          rowData={userData ? userData : null}
+          rowData={people}
           columnDefs={columnDefs}
           gridOptions={gridOptions}
           rowSelection="single"
@@ -108,19 +107,27 @@ const PeopleGrid = (props) => {
         ></AgGridReact>
       </div>
     </div>
-    {/* </div> : <NoPage error={error} /> */}
-  </div> : <NoPage error={data} />
+    {/* </div> : <NoPage error={people} /> */}
+  </div> : null;
 
 
   return (
     <>
-      {isLoading && <h1 className="me-5">Loading...</h1>}
-      { }
-      {isError ? error : htmlTemplate}
-
-
+      {isLoading && <h1 className="text-center display-4">Loading...</h1>}
+      {htmlTemplate}
+      {isError && <NoPage error={error.message} />}
     </>
   );
 };
 
 export default PeopleGrid;
+
+
+
+
+  //  1. Make axios API
+  //  2. GET data
+  //  3. ERRor message
+  // TODO 4. Date Form
+  // TODO 5. Select user
+  // TODO 6. Make react component

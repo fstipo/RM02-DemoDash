@@ -3,7 +3,7 @@ import { request } from "../utils/axios";
 import Moment from 'moment';
 import axios from 'axios';
 
-const fetchData = () => request({ url: "/People" })
+const fetchData = () => request({ url: "/Peoples" })
 
 export const useFetchData = () => useQuery("people", fetchData)
 
