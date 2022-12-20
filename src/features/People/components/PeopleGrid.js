@@ -11,6 +11,7 @@ import { gridColumnsTemplate } from "../data/gridColumnsTemplate"
 
 import { useQuery } from 'react-query';
 import { getPeople } from '../../../api/apiPeople';
+import moment from 'moment';
 
 
 const gridColumns = gridColumnsTemplate;
@@ -30,9 +31,10 @@ const PeopleGrid = (props) => {
     error,
     isError,
   } = useQuery("people", getPeople, {
-    select: people => people.map(el => { return { ...el, changedAt: Moment(el.changedAt).format(" MMM Do YYYY, h:mm:ss a") } })
+    select: people => people.map(el => { return { ...el, changedAt: Moment(el.changedAt).format("lll") } })
   });
 
+  console.log(moment.locale());
   // console.log(people.map(el => el.changedAt = Moment(el.changedAt).format('DD.MM.YYYY, h:mm:ss A')));
   // console.log(people);
 
@@ -96,7 +98,7 @@ const PeopleGrid = (props) => {
       </div>
       <div
         className="bg-info ag-theme-alpine"
-        style={{ height: 700, width: '100%' }}
+        style={{ height: 600, width: '100%' }}
       >
         <AgGridReact
           ref={gridRef}

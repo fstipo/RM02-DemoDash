@@ -1,12 +1,17 @@
 import React from 'react';
-import Navigation from './components/Navigation/Navigation';
+import Layout from "./components/Layout"
+import NavigationSidebar from './components/Navigation/NavigationSidebar';
+import NavigationRoutes from './components/Navigation/NavigationRoutes';
 import './App.css';
 
 const App = () => {
   return (
-    <>
-      <Navigation />
-    </>
+    <Layout>
+      <NavigationSidebar />
+      <div className="col">
+        <NavigationRoutes />
+      </div>
+    </Layout>
   );
 };
 

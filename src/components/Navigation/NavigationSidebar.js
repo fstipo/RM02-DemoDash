@@ -1,24 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import { SignInButton } from '../Auth/SignInButton';
 import { useIsAuthenticated } from '@azure/msal-react';
-import '../../App.css';
-import NavigationLink from '../UI/NavigationLink';
-// import { SignOutButton } from '../../auth/SignOutButton';
 import { SignInButton } from '../../auth/SignInButton';
 import { SignOutButton } from '../../auth/SignOutButton';
+import NavigationLink from '../UI/NavigationLink';
+import '../../App.css';
+
 
 const NavigationSidebar = () => {
+  const [isToggled, setIsToggled] = useState(false);
   const isAuthenticated = useIsAuthenticated();
-  const collapseNavbarHandler = (e) => {
-    e.preventDefault();
-    const navigation = document.querySelector('.section__navigation');
-    navigation.classList.toggle('collapsed');
-  };
-
+  const style = `section__navigation col bg-dark collapse d-sm-block ${isToggled ? "collapsed" : null}`;
+  const collapseNavbarHandler = () => setIsToggled(!isToggled);
   return (
-    <div className="section__navigation col bg-dark">
-      <nav className="navbar-dark pt-4 d-flex flex-column">
+    <div className={style}>
+
+      <nav className="navbar-dark pt-4 d-flex flex-column" >
         <div className="d-flex navigation__logo--box m-auto mb-4 text-danger">
           <Link
             className="navigation__logo--text navbar-brand d-inline-block m-auto text-light "
@@ -50,6 +47,7 @@ const NavigationSidebar = () => {
               to="/costumers"
             />
             <hr className="text-white border-2  mb-1 text-center" />
+
             <button
               className="navigation__collapse-button nav-link"
               type="button"

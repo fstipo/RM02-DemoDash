@@ -62,7 +62,7 @@ const PeopleCreateUser = () => {
       <Header name="Create User" icon="person-plus" />
       <div className="container card">
         <div className="row justify-content-center align-items-center">
-          <div className="col-8  ">
+          <div className="col-sm-9  col-10">
             <div className='position-relative me-5'>
               <Toast show={showCreateUserToast} onClose={showCreateUserToastHandler} delay={3000} autohide bg="primary text-white" className='position-absolute'>
                 <Toast.Header className='fs-6'>

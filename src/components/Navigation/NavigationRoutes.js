@@ -7,8 +7,8 @@ import Products from '../../features/Products';
 import Customers from '../../features/Customers';
 import Assets from '../../features/Assets';
 import PeopleDetails from "../../features/People/components/PeopleDetails"
-// import PeopleCreateUser from '../Pages/People/Grid/Create-User/PeopleCreateUser';
 import PeopleCreateUser from '../../features/People/components/Create-User/PeopleCreateUser';
+
 export const dataContext = React.createContext();
 
 const NavigationRoutes = () => {
