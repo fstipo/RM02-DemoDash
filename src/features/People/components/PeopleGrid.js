@@ -1,16 +1,13 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import NoPage from '../../NoPage';
-import Moment from 'moment';
+
+import { usePeopleData } from '../../../hooks/usePeople';
 
 // *Grid
 import { gridColumnsTemplate } from "../data/gridColumnsTemplate"
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-
-// * useQuery
-import { useQuery } from 'react-query';
-import { getPeople } from '../../../api/apiPeople';
 
 // * navigate
 import { useNavigate } from "react-router-dom"
@@ -21,19 +18,12 @@ const PeopleGrid = () => {
   const gridRef = useRef(null);
   const navigate = useNavigate();
 
-
   const {
     isLoading,
     data: people,
     error,
     isError,
-  } = useQuery("people", getPeople, {
-    select: people => people.map(el => {
-      return {
-        ...el, changedAt: Moment(el.changedAt).format("lll"),
-      }
-    }),
-  });
+  } = usePeopleData();
 
   const onRowSelected = useCallback((event) => {
     const selectedUserId = event.node.data.id;
