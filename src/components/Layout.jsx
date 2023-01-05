@@ -1,7 +1,6 @@
 import React from 'react';
 
-
-const Container = ({ children }) => {
+const Layout = ({ children }) => {
   return (
     <div className="row min-vh-100">
       <div className="container-fluid d-flex">
@@ -11,4 +10,4 @@ const Container = ({ children }) => {
   );
 };
 
-export default Container;
+export default Layout;

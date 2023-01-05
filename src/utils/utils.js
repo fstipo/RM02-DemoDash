@@ -1,6 +1,7 @@
 import Moment from "moment";
 import axios from "axios";
 
+
 // * DATE FORMAT
 export const dateFormat = (date) => Moment(date).format('DD.MM.YYYY, h:mm:ss A');
 
@@ -25,3 +26,6 @@ export const getSelectDatesData = (id, startDate, endDate, fn) => {
         })
         .catch(err => console.error(err))
 }
+
+
+

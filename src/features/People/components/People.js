@@ -1,19 +1,15 @@
 import React from 'react';
+
 import Header from '../../../components/UI/Header';
 import PeopleGrid from "./PeopleGrid"
 
-
-const People = (props) => {
-  const saveIdHandler = (id) => {
-    props.onSelectId(id);
-  };
+const People = () => {
   return (
     <>
       <Header name="People" icon="people" />
-      <PeopleGrid onSaveId={saveIdHandler} />
+      <PeopleGrid />
     </>
   );
 };
-
 
 export default People;

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Toast } from 'react-bootstrap'
 import { useFormik } from 'formik';
 import Header from '../../../../components/UI/Header';
 
+import { useNavigate } from "react-router-dom"
+
 const PeopleCreateUser = () => {
   const [showCreateUserToast, setShowCreateUserToast] = useState(false);
   const showCreateUserToastHandler = () => setShowCreateUserToast(!showCreateUserToast);
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -39,7 +41,6 @@ const PeopleCreateUser = () => {
         "name": values.name,
         "sector": values.sector,
       }
-      console.log(`NEW USER: id=${values.id}, name=${values.name}, sector=${values.sector}`);
       let options = {
         method: "POST",
         headers: {
@@ -51,15 +52,14 @@ const PeopleCreateUser = () => {
       if (values.id !== "" && values.name !== "" && values.sector !== "") {
         setShowCreateUserToast(!showCreateUserToast)
         let response = fetch("https://es-demo.azurewebsites.net/v1/People", options);
-        response.then(res => res.json()).then(d => console.log(d));
-        console.log(newUser);
+        response.then(res => res.json());
       }
     }
   });
 
   return (
     <>
-      <Header name="Create User" icon="person-plus" />
+      <Header name="People" icon="people" />
       <div className="container card">
         <div className="row justify-content-center align-items-center">
           <div className="col-sm-9  col-10">
@@ -79,7 +79,8 @@ const PeopleCreateUser = () => {
                   <div className="bg-secondary-soft px-4 py-3 rounded">
                     <div className="row g-4">
                       <h4 className="fw-bold">
-                        User details
+                        <i className={`me-2 bi bi-person-plus`}></i>
+                        <span>Create User</span>
                       </h4>
                       <div >
                         <label htmlFor="id" className="form-label">ID *</label>
@@ -128,9 +129,9 @@ const PeopleCreateUser = () => {
                       <button type="submit" className="btn btn-primary btn-lg">
                         Create user
                       </button>
-                      <Link type="button" className="btn btn-primary btn-lg" to={"/people"}>
+                      <a type="button" className="btn btn-primary btn-lg" onClick={() => navigate("/people")}>
                         Back
-                      </Link>
+                      </a>
                     </div>
                   </div>
                 </div>

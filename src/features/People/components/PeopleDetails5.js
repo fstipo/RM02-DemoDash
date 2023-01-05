@@ -1,58 +1,56 @@
-import React, { useState } from 'react'
-import { useParams, useNavigate } from "react-router-dom"
-import { useUserDetails } from '../../../hooks/usePeople';
-import { useFormik } from 'formik';
+import React, { useEffect, useState } from 'react';
+import Header from '../../../components/UI/Header';
 import Moment from "moment"
-import PeopleHistory from './History/DetailsHistory';
+import { Link } from 'react-router-dom';
+import { Toast } from 'react-bootstrap'
+import { useFormik } from 'formik';
 import { dateFormat } from '../../../utils/utils';
 
-import { Toast } from 'react-bootstrap'
-import Header from '../../../components/UI/Header';
+import PeopleHistory from './History/DetailsHistory';
 
-const PeopleDetails = () => {
+
+const PeopleDetails = ({ userId }) => {
+  const [userData, setUserData] = useState("");
   const [showHistory, setShowHistory] = useState(false);
   const [userHistory, setUserHistory] = useState("");
-
-  // *Toast
   const [showDeleteToast, setShowDeleteToast] = useState(false);
   const [showUpdateToast, setShowUpdateToast] = useState(false);
   const showDeleteToastHandler = () => setShowDeleteToast(!showDeleteToast);
   const showUpdateToastHandler = () => setShowUpdateToast(!showUpdateToast);
 
-  // *Navigate
-  const { id } = useParams();
-  const navigate = useNavigate()
-  const { data: people } = useUserDetails(id)
+  useEffect(() => {
+    const data = window.localStorage.getItem("MY_TABLE_ID");
+    if (data === null) setUserData(JSON.parse(data));
+  }, [])
 
-  // const deleteHandler = () => console.log("You are deleted");
-  // const historyHandler = () => console.log("Play with history");
+  useEffect(() => {
+    const url = `https://es-demo.azurewebsites.net/v1/People`;
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url);
+        const json = await response.json();
 
-  const deleteHandler = () => {
-    setShowDeleteToast(!showDeleteToast);
-    const response = fetch(`https://es-demo.azurewebsites.net/v1/People/${id}`, { method: "DELETE" });
-    response.then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err.message));
-  }
+        const user = json.filter((data) => userId === data.id);
+        if (user) {
+          setUserData((prevUser) => (prevUser = user[0]));
+          window.localStorage.setItem("MY_TABLE_ID", JSON.stringify(userData))
+        }
+      } catch (error) {
+        console.log('error:', error);
+      }
+    };
 
-  const historyHandler = () => {
-    setShowHistory(!showHistory);
-    fetch(`https://es-demo.azurewebsites.net/v1/People/${id}/history?from=1.1.1990`, { method: "GET" })
-      .then(res =>
-        res.json())
-      .then((data) => {
-        data.map(el => el.changedAt = dateFormat(el.changedAt));
-        return setUserHistory(data)
-      })
-      .catch(err => console.log(err.message));
-  }
+    fetchData();
+  }, [userData]);
 
 
   const formik = useFormik({
     initialValues: {
-      name: people?.name || "",
-      id: people?.id || "",
-      sector: people?.sector || "",
-      changedAt: Moment(people?.changedAt).format('DD.MM.YYYY, h:mm:ss A') || "",
-      originalRevision: people?.originalRevision || ""
+      name: userData.name || "",
+      id: userData.id || "",
+      sector: userData.sector || "",
+      changedAt: Moment(userData.changedAt).format('DD.MM.YYYY, h:mm:ss A') || "",
+      originalRevision: userData.originalRevision || ""
     },
 
     enableReinitialize: true,
@@ -76,7 +74,7 @@ const PeopleDetails = () => {
     },
     onSubmit: (values) => {
 
-      const newData = { ...people, "name": people.name ? formik.values.name : people.name, "sector": people.sector ? formik.values.sector : people.sector };
+      const newData = { ...userData, "name": userData.name ? formik.values.name : userData.name, "sector": userData.sector ? formik.values.sector : userData.sector };
 
       let options = {
         method: "PUT",
@@ -87,18 +85,33 @@ const PeopleDetails = () => {
       }
       setShowUpdateToast(!showUpdateToast)
 
-      const response = fetch(`https://es-demo.azurewebsites.net/v1/People/${id}`, options);
+      const response = fetch(`https://es-demo.azurewebsites.net/v1/People/${userData.id}`, options);
       response.then(res => res.json()).catch(err => console.log(err.message));
 
     }
   })
 
+  const deleteHandler = () => {
+    setShowDeleteToast(!showDeleteToast);
+    const response = fetch(`https://es-demo.azurewebsites.net/v1/People/${userData.id}`, { method: "DELETE" });
+    response.then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err.message));
+  }
 
+  const historyHandler = () => {
+    setShowHistory(!showHistory);
+    fetch(`https://es-demo.azurewebsites.net/v1/People/${userData.id}/history?from=1.1.1990`, { method: "GET" })
+      .then(res =>
+        res.json())
+      .then((data) => {
+        data.map(el => el.changedAt = dateFormat(el.changedAt));
+        return setUserHistory(data)
+      })
+      .catch(err => console.log(err.message));
+  }
 
   return (
-    <div>
+    <>
       <Header name="People" icon="people" />
-
       <div className="container card">
         <div className="row ms-5">
           <div className="col-12">
@@ -124,15 +137,12 @@ const PeopleDetails = () => {
             </div>
             <form className="file-upload" onSubmit={formik.handleSubmit}>
               <div className="row mb-1 gx-5">
-                <div className="col-xl-12">
-                  <h4 className="fw-bold">
-                    <i className={`me-2 bi bi-cloud-download`}></i>
-                    <span>User Details</span>
-                  </h4>
-                  <div className="bg-secondary-soft px-4 py-3 rounded">
+                <div className="col-xl-12 mb-1">
 
+                  <div className="bg-secondary-soft px-4 py-3 rounded">
                     <div className="row g-3">
-                      <div className="h-col col-xl-3">
+
+                      <div className="h-col col-md-3">
                         <label htmlFor='id' className="form-label">ID</label>
                         <input
                           id="id"
@@ -144,7 +154,7 @@ const PeopleDetails = () => {
                           readOnly="readonly"
                         />
                       </div>
-                      <div className="h-col col-xl-3">
+                      <div className="h-col col-md-3">
                         <label htmlFor='name' className="form-label">Name *</label>
                         <input
                           id="name"
@@ -159,7 +169,7 @@ const PeopleDetails = () => {
                           <div className="error text-danger fw-bold">{formik.errors.name}</div>
                         ) : null}
                       </div>
-                      <div className="h-col col-xl-3">
+                      <div className="h-col col-md-3">
                         <label htmlFor='sector' className="form-label">Sector *</label>
                         <input
                           id='sector'
@@ -174,7 +184,8 @@ const PeopleDetails = () => {
                           <div className="error text-danger fw-bold">{formik.errors.sector}</div>
                         ) : null}
                       </div>
-                      <div className="h-col col-xl-6">
+                      <div className="h-col col-md-6">
+                        {/* <div className="h-col col-md-12 col-sm-6"> */}
                         <label htmlFor='changed-at' className="form-label">Changed At</label>
                         <input
                           id='changed-at'
@@ -185,7 +196,8 @@ const PeopleDetails = () => {
                           readOnly="readonly"
                         />
                       </div>
-                      <div className="h-col col-xl-4">
+                      <div className="h-col col-md-5">
+                        {/* <div className="h-col col-md-12 col-sm-5"> */}
                         <label htmlFor="original-revision" className="form-label">Original Revision</label>
                         <input
                           id="original-revision"
@@ -198,7 +210,7 @@ const PeopleDetails = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="gap-lg-5 d-flex justify-content-center text-center gap-md-3" >
+                  <div className="gap-5 d-flex justify-content-center text-center" >
                     <button type="button" className="btn btn-outline-danger" onClick={deleteHandler} >
                       Delete
                     </button>
@@ -208,10 +220,9 @@ const PeopleDetails = () => {
                     <button type="button" className="btn btn-outline-secondary" onClick={historyHandler} history={userHistory}>
                       History
                     </button>
-                    <button type="button" className="btn btn-outline-secondary" onClick={
-                      () => navigate("/people")}>
+                    <Link type="button" className="btn btn-outline-secondary" to={"/people"}>
                       Back
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -219,11 +230,11 @@ const PeopleDetails = () => {
           </div>
         </div>
         <div>
-          {showHistory && <PeopleHistory history={userHistory} id={id} />}
+          {showHistory && <PeopleHistory history={userHistory} id={userId} />}
         </div>
       </div >
-    </div>
-  )
-}
+    </>
+  );
+};
 
-export default PeopleDetails
+export default PeopleDetails;

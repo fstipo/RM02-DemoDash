@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from '../../features/Home';
-import Projects from '../../features/Projects';
-import People from '../../features/People/components/People';
-import Products from '../../features/Products';
-import Customers from '../../features/Customers';
-import Assets from '../../features/Assets';
-import PeopleDetails from "../../features/People/components/PeopleDetails"
-import PeopleCreateUser from '../../features/People/components/Create-User/PeopleCreateUser';
+import Home from '../features/Home';
+import Projects from '../features/Projects';
+import People from '../features/People/components/People';
+import Products from '../features/Products';
+import Customers from '../features/Customers';
+import Assets from '../features/Assets';
+import PeopleDetails from "../features/People/components/PeopleDetails"
+import PeopleCreateUser from '../features/People/components/Create-User/PeopleCreateUser';
 
+// TODO neznam čemu služi i zašto je ovdje  
 export const dataContext = React.createContext();
 
-const NavigationRoutes = () => {
+const NavRoutes = () => {
   const [selectedUserId, setSelectedUserId] = useState('');
   const selectedUserHandler = (userId) => {
     setSelectedUserId(userId);
@@ -36,4 +37,10 @@ const NavigationRoutes = () => {
   );
 };
 
-export default NavigationRoutes;
+export default NavRoutes;
+
+
+{/* <Route path="user" element={<User />}>
+<Route path="profile" element={<Profile />} />
+<Route path="account" element={<Account />} />
+</Route> */}

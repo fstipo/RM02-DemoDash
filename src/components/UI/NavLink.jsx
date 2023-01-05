@@ -1,9 +1,9 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink as NavigationLink } from 'react-router-dom';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import '../../App.css';
 
-const NavigationLink = ({ icon, title, to }) => {
+const NavLink = ({ icon, title, to }) => {
   return (
     <li className="nav-item h5 ">
       <OverlayTrigger
@@ -15,14 +15,14 @@ const NavigationLink = ({ icon, title, to }) => {
         )}
         placement="right"
       >
-        <NavLink className="nav-link px-4" to={to}>
+        <NavigationLink className="nav-link px-4" to={to}>
           <i className={`bi bi-${icon}`}></i>
           <span className="navigation__link-title ms-3">{title}</span>
-        </NavLink>
+        </NavigationLink>
       </OverlayTrigger >
     </li >
 
   );
 };
 
-export default NavigationLink;
+export default NavLink;

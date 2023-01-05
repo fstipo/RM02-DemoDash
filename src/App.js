@@ -1,15 +1,18 @@
 import React from 'react';
-import Layout from "./components/Layout"
-import NavigationSidebar from './components/Navigation/NavigationSidebar';
-import NavigationRoutes from './components/Navigation/NavigationRoutes';
+import Layout from './components/Layout';
+import Sidebar from './components/Sidebar';
+import Routes from './components/Routes';
 import './App.css';
+import { ApiContextProvider } from './context/apiContext';
 
 const App = () => {
   return (
     <Layout>
-      <NavigationSidebar />
+      <Sidebar />
       <div className="col">
-        <NavigationRoutes />
+        <ApiContextProvider>
+          <Routes />
+        </ApiContextProvider>
       </div>
     </Layout>
   );
