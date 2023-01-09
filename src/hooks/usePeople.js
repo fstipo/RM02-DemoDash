@@ -1,6 +1,6 @@
 import axios from "axios";
 import Moment from 'moment';
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient, useMutation } from "react-query";
 
 // *URL
 const url = "https://es-demo.azurewebsites.net/v1"
@@ -33,7 +33,25 @@ export const useUserDetails = (userId) => {
     return useQuery(["user-details", userId], getUser)
 }
 
-// TODO
-// TODO Post
+// * POST people
+const addUser = async (newUser) => {
+    const response = await apiPeople.post(source, newUser);
+    return response.data;
+}
+
+export const useAddUser = () => {
+    const addUser = async (newUser) => {
+        const response = await apiPeople.post(source, newUser);
+        return response.data;
+    }
+    const queryClient = useQueryClient();
+    return useMutation(addUser, {
+        onSuccess: () => queryClient.invalidateQueries("people")
+    })
+
+}
+
+
+
 // TODO Delete
 // TODO UPDATE

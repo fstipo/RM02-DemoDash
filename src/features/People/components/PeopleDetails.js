@@ -74,7 +74,7 @@ const PeopleDetails = () => {
       }
       return errors;
     },
-    onSubmit: (values) => {
+    onSubmit: () => {
 
       const newData = { ...people, "name": people.name ? formik.values.name : people.name, "sector": people.sector ? formik.values.sector : people.sector };
 

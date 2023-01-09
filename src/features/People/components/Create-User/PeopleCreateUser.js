@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Toast } from 'react-bootstrap'
 import { useFormik } from 'formik';
-import Header from '../../../../components/UI/Header';
-
+import { useAddUser } from '../../../../hooks/usePeople';
 import { useNavigate } from "react-router-dom"
+import Header from '../../../../components/UI/Header';
 
 const PeopleCreateUser = () => {
   const [showCreateUserToast, setShowCreateUserToast] = useState(false);
   const showCreateUserToastHandler = () => setShowCreateUserToast(!showCreateUserToast);
   const navigate = useNavigate();
+  const { mutate } = useAddUser();
 
   const formik = useFormik({
     initialValues: {
@@ -41,18 +42,10 @@ const PeopleCreateUser = () => {
         "name": values.name,
         "sector": values.sector,
       }
-      let options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8"
-        },
-        body: JSON.stringify(newUser)
-      }
 
       if (values.id !== "" && values.name !== "" && values.sector !== "") {
         setShowCreateUserToast(!showCreateUserToast)
-        let response = fetch("https://es-demo.azurewebsites.net/v1/People", options);
-        response.then(res => res.json());
+        mutate(newUser);
       }
     }
   });
