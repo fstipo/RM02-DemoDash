@@ -1,16 +1,13 @@
 import React, { useState } from 'react'
 import { useParams, useNavigate } from "react-router-dom"
+import { useUserDetails } from '../../../hooks/usePeople';
 import { useFormik } from 'formik';
 import Moment from "moment"
 import PeopleHistory from './History/DetailsHistory';
+import { dateFormat } from '../../../utils/utils';
+
 import { Toast } from 'react-bootstrap'
 import Header from '../../../components/UI/Header';
-
-import { useUserDetails } from '../../../hooks/usePeople';
-import { useHistoryUserDetails } from '../../../hooks/usePeople';
-import { useRemoveUser } from '../../../hooks/usePeople';
-import { useUpdateUser } from '../../../hooks/usePeople';
-
 
 const PeopleDetails = () => {
   const [showHistory, setShowHistory] = useState(false);
@@ -18,8 +15,6 @@ const PeopleDetails = () => {
 
   // *Toast
   const [showDeleteToast, setShowDeleteToast] = useState(false);
-
-
   const [showUpdateToast, setShowUpdateToast] = useState(false);
   const showDeleteToastHandler = () => setShowDeleteToast(!showDeleteToast);
   const showUpdateToastHandler = () => setShowUpdateToast(!showUpdateToast);
@@ -27,22 +22,29 @@ const PeopleDetails = () => {
   // *Navigate
   const { id } = useParams();
   const navigate = useNavigate()
+  const { data: people } = useUserDetails(id)
 
-  // *React Query
-  const { data: people } = useUserDetails(id);
-  const { data: historyDetails } = useHistoryUserDetails(id);
-  const { mutateAsync: updateUser } = useUpdateUser(id);
-  const { mutateAsync: removeUser } = useRemoveUser(id);
+  // const deleteHandler = () => console.log("You are deleted");
+  // const historyHandler = () => console.log("Play with history");
 
   const deleteHandler = () => {
     setShowDeleteToast(!showDeleteToast);
-    removeUser()
+    const response = fetch(`https://es-demo.azurewebsites.net/v1/People/${id}`, { method: "DELETE" });
+    response.then(res => res.json()).then(data => console.log(data)).catch(err => console.log(err.message));
   }
 
   const historyHandler = () => {
     setShowHistory(!showHistory);
-    setUserHistory(historyDetails);
-  };
+    fetch(`https://es-demo.azurewebsites.net/v1/People/${id}/history?from=1.1.1990`, { method: "GET" })
+      .then(res =>
+        res.json())
+      .then((data) => {
+        data.map(el => el.changedAt = dateFormat(el.changedAt));
+        return setUserHistory(data)
+      })
+      .catch(err => console.log(err.message));
+  }
+
 
   const formik = useFormik({
     initialValues: {
@@ -73,12 +75,25 @@ const PeopleDetails = () => {
       return errors;
     },
     onSubmit: () => {
+
       const newData = { ...people, "name": people.name ? formik.values.name : people.name, "sector": people.sector ? formik.values.sector : people.sector };
+
+      let options = {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(newData)
+      }
       setShowUpdateToast(!showUpdateToast)
-      updateUser(newData)
+
+      const response = fetch(`https://es-demo.azurewebsites.net/v1/People/${id}`, options);
+      response.then(res => res.json()).catch(err => console.log(err.message));
+
     }
-  }
-  )
+  })
+
+
 
   return (
     <div>

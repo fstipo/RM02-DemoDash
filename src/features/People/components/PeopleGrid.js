@@ -65,7 +65,7 @@ const PeopleGrid = () => {
         ></AgGridReact>
       </div>
     </div>
-  </div >;
+  </div>;
 
   // * RENDER
   return (

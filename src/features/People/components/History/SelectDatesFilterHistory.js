@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-// import { getSelectDatesData } from '../../../../../../utils/utils'
 import { getSelectDatesData } from '../../../../utils/utils'
 
 const SelectDatesFilterHistory = ({ id, onSave }) => {
@@ -15,7 +14,6 @@ const SelectDatesFilterHistory = ({ id, onSave }) => {
 
     useEffect(() => {
         onSave(selectDatesData)
-        console.log(selectDatesData);
     }, [selectDatesData])
 
 

@@ -9,7 +9,7 @@ const PeopleCreateUser = () => {
   const [showCreateUserToast, setShowCreateUserToast] = useState(false);
   const showCreateUserToastHandler = () => setShowCreateUserToast(!showCreateUserToast);
   const navigate = useNavigate();
-  const { mutate } = useAddUser();
+  const { mutate: addUser } = useAddUser();
 
   const formik = useFormik({
     initialValues: {
@@ -45,7 +45,7 @@ const PeopleCreateUser = () => {
 
       if (values.id !== "" && values.name !== "" && values.sector !== "") {
         setShowCreateUserToast(!showCreateUserToast)
-        mutate(newUser);
+        addUser(newUser);
       }
     }
   });
