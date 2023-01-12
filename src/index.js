@@ -15,9 +15,9 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <MsalProvider instance={msalInstance}>
-          <App />
-        </MsalProvider>
+        {/* <MsalProvider instance={msalInstance}> */}
+        <App />
+        {/* </MsalProvider> */}
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
     </QueryClientProvider>
