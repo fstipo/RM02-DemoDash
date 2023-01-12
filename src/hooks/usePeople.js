@@ -1,16 +1,17 @@
 import axios from "axios";
 import Moment from 'moment';
-import { useQuery, useQueryClient, useMutation } from "react-query";
+import { useQuery, useMutation } from "react-query";
 
 // *URL
-const url = "https://es-demo.azurewebsites.net/v1"
+const url = "https://es-demo.azurewebsites.net/v12"
 const apiPeople = axios.create({ baseURL: url });
-const source = "/People"
-const history = "/history?from=1.1.1990"
-//const source = "/Assets"
+const source = "/People";
+const history = "/history?from=1.1.1990";
+// const source = "/Assets"
 
+// *PEOPLE
 // *GET People 
-export const usePeopleData = () => {
+export const usePeopleData = (onError) => {
     const getPeople = async () => {
         const response = await apiPeople.get(source);
         return response.data;
@@ -21,6 +22,7 @@ export const usePeopleData = () => {
                 ...el, changedAt: Moment(el.changedAt).format("lll"),
             }
         }),
+        onError: onError
     });
 }
 
@@ -32,24 +34,6 @@ export const useUserDetails = (userId) => {
         return response.data;
     }
     return useQuery(["user-details", userId], getUser)
-}
-
-// *GET History User Details by ID
-export const useHistoryUserDetails = (userId) => {
-    const getHistory = async ({ queryKey }) => {
-        const id = queryKey[1];
-        const response = await apiPeople.get(`${source}/${id}${history}`);
-        return response.data;
-    }
-    return useQuery(["history-details", userId], getHistory,
-        {
-            select: people => people.map(el => {
-                return {
-                    ...el, changedAt: Moment(el.changedAt).format("lll"),
-                }
-            }),
-        }
-    )
 }
 
 // *POST people
@@ -79,3 +63,28 @@ export const useUpdateUser = (id) => {
     }
     return useMutation(updateUser)
 }
+
+// * HISTORY
+
+// *GET History User Details by ID
+export const useHistoryUserDetails = (userId) => {
+    const getHistory = async ({ queryKey }) => {
+        const id = queryKey[1];
+        const response = await apiPeople.get(`${source}/${id}${history}`);
+        return response.data;
+    }
+    return useQuery(["history-details", userId], getHistory,
+        {
+            select: people => people.map(el => {
+                return {
+                    ...el, changedAt: Moment(el.changedAt).format("lll"),
+                }
+            }),
+        }
+    )
+}
+
+
+
+
+

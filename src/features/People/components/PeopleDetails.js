@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useParams, useNavigate } from "react-router-dom"
 import { useFormik } from 'formik';
 import Moment from "moment"
-import PeopleHistory from './History/DetailsHistory';
+import DetailsHistory from './History/DetailsHistory';
 import { Toast } from 'react-bootstrap'
 import Header from '../../../components/UI/Header';
 
@@ -73,7 +73,11 @@ const PeopleDetails = () => {
       return errors;
     },
     onSubmit: () => {
-      const newData = { ...people, "name": people.name ? formik.values.name : people.name, "sector": people.sector ? formik.values.sector : people.sector };
+      const newData = {
+        ...people,
+        "name": people.name ? formik.values.name : people.name,
+        "sector": people.sector ? formik.values.sector : people.sector
+      };
       setShowUpdateToast(!showUpdateToast)
       updateUser(newData)
     }
@@ -204,7 +208,7 @@ const PeopleDetails = () => {
           </div>
         </div>
         <div>
-          {showHistory && <PeopleHistory history={userHistory} id={id} />}
+          {showHistory && <DetailsHistory history={userHistory} id={id} />}
         </div>
       </div >
     </div>

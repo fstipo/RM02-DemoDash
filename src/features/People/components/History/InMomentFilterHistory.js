@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-// import { getData } from '../../../../../../utils/utils';
 import { getData } from '../../../../utils/utils';
+import { useParams } from 'react-router-dom';
 
-const InMomentFilterHistory = ({ id, onSave }) => {
+const InMomentFilterHistory = ({ onSave }) => {
     const [date, setDate] = useState(new Date());
     const [newData, setNewData] = useState("");
+    const { id } = useParams();
 
     const getDataHandler = () => {
         setNewData(getData(id, date.toISOString(), setNewData))
@@ -32,7 +33,6 @@ const InMomentFilterHistory = ({ id, onSave }) => {
                     dateFormat="d.MM.yyyy H:mm"
                     placeholderText=" Select date"
                     isClearable
-                // locale={fi}
                 />
             </div>
         </div>
