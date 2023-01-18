@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Toast } from 'react-bootstrap'
 import { useFormik } from 'formik';
 import { useAddUser } from '../../../../hooks/usePeople';
 import { useNavigate } from "react-router-dom"
@@ -10,8 +9,17 @@ import { toastInitialOptions as toastOptions } from "../../../../data/data"
 
 const PeopleCreateUser = () => {
   const navigate = useNavigate();
-  const onError = (err) => toast.error(err?.message, toastOptions);
-  const onSuccess = (err) => toast.success("User profile is successfully created!", toastOptions);
+  const onError = (err) => {
+    if (err.response.status === 400) {
+      toast.error("Network error " + err.response.status, toastOptions);
+    } else if (err.response.status === 500) {
+      toast.error("Duplicate ID. Try another ID " + err.response.status, toastOptions);
+    } else {
+      toast.error(err.message + err.response.status, toastOptions);
+    }
+  }
+
+  const onSuccess = () => toast.success("User profile is successfully created!", toastOptions);
 
   const { mutate: addUser
   } = useAddUser();

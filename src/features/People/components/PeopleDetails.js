@@ -3,43 +3,41 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useFormik } from 'formik';
 import Moment from "moment"
 import DetailsHistory from './History/DetailsHistory';
-import { Toast } from 'react-bootstrap'
 import Header from '../../../components/UI/Header';
+import { ToastContainer, toast } from 'react-toastify';
+import { toastInitialOptions as toastOptions } from '../../../data/data';
 
 import { useUserDetails } from '../../../hooks/usePeople';
 import { useHistoryUserDetails } from '../../../hooks/usePeople';
 import { useRemoveUser } from '../../../hooks/usePeople';
 import { useUpdateUser } from '../../../hooks/usePeople';
-
+import { QueryClient } from 'react-query';
 
 const PeopleDetails = () => {
   const [showHistory, setShowHistory] = useState(false);
   const [userHistory, setUserHistory] = useState("");
 
-  // *Toast
-  const [showDeleteToast, setShowDeleteToast] = useState(false);
-
-
-  const [showUpdateToast, setShowUpdateToast] = useState(false);
-  const showDeleteToastHandler = () => setShowDeleteToast(!showDeleteToast);
-  const showUpdateToastHandler = () => setShowUpdateToast(!showUpdateToast);
-
   // *Navigate
   const { id } = useParams();
   const navigate = useNavigate()
 
+  const onError = (err) => toast.error(err?.message, toastOptions);
+  const deleteUser = () => toast.success("User profile is successfully deleted!", toastOptions);
+  const toastUpdate = () => toast.info("User profile is updated!", toastOptions);
+  const historyToast = () => toast.success("HISTORY!", toastOptions);
+
   // *React Query
-  const { data: people } = useUserDetails(id);
-  const { data: historyDetails } = useHistoryUserDetails(id);
-  const { mutateAsync: updateUser } = useUpdateUser(id);
-  const { mutateAsync: removeUser } = useRemoveUser(id);
+  const { data: people } = useUserDetails(id, onError);
+  const { data: historyDetails } = useHistoryUserDetails(id, historyToast, onError);
+  const { mutateAsync: updateUser } = useUpdateUser(id, toastUpdate, onError);
+  const { mutateAsync: removeUser } = useRemoveUser(id, deleteUser, onError);
 
   const deleteHandler = () => {
-    setShowDeleteToast(!showDeleteToast);
-    removeUser()
+    removeUser({ deleteUser, onError })
   }
-
-  const historyHandler = () => {
+  const queryClient = new QueryClient;
+  const historyHandler = async () => {
+    // await queryClient.refetchQueries({ queryKey: ['history-details'], type: 'active' })
     setShowHistory(!showHistory);
     setUserHistory(historyDetails);
   };
@@ -78,8 +76,7 @@ const PeopleDetails = () => {
         "name": people.name ? formik.values.name : people.name,
         "sector": people.sector ? formik.values.sector : people.sector
       };
-      setShowUpdateToast(!showUpdateToast)
-      updateUser(newData)
+      updateUser(newData, { toastUpdate, onError })
     }
   }
   )
@@ -87,30 +84,11 @@ const PeopleDetails = () => {
   return (
     <div>
       <Header name="People" icon="people" />
-
+      <ToastContainer />
       <div className="container card">
         <div className="row ms-5">
           <div className="col-12">
-            <div className='position-relative me-5'>
-              <Toast show={showDeleteToast} onClose={showDeleteToastHandler} delay={3000} autohide bg="danger text-white" className='position-absolute'>
-                <Toast.Header className='fs-6'>
-                  <i className="bi bi-trash me-3"></i>
-                  <strong className="me-auto">Delete User Profile </strong>
-                  <small className="text-muted">just now</small>
-                </Toast.Header>
-                <Toast.Body>User profile is successfully deleted!</Toast.Body>
-              </Toast>
-            </div>
-            <div className='position-relative me-5'>
-              <Toast show={showUpdateToast} onClose={showUpdateToastHandler} delay={3000} autohide bg="primary text-white" className='position-absolute'>
-                <Toast.Header className='fs-6'>
-                  <i className="bi bi-arrow-up-circle-fill me-3"></i>
-                  <strong className="me-auto">Update User Profile </strong>
-                  <small className="text-muted">just now</small>
-                </Toast.Header>
-                <Toast.Body>User profile is successfully updated!</Toast.Body>
-              </Toast>
-            </div>
+
             <form className="file-upload" onSubmit={formik.handleSubmit}>
               <div className="row mb-1 gx-5">
                 <div className="col-xl-12">

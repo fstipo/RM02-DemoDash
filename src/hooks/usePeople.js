@@ -29,13 +29,13 @@ export const usePeopleData = (onError, onSuccess) => {
 }
 
 // *GET People by ID
-export const useUserDetails = (userId) => {
+export const useUserDetails = (userId, onError) => {
     const getUser = async ({ queryKey }) => {
         const id = queryKey[1];
         const response = await apiPeople.get(`${source}/${id}`);
         return response.data;
     }
-    return useQuery(["user-details", userId], getUser)
+    return useQuery(["user-details", userId], getUser, { onError })
 }
 
 // *POST people
@@ -48,27 +48,27 @@ export const useAddUser = (onSuccess, onError) => {
 }
 
 // *Delete People by ID
-export const useRemoveUser = (id) => {
+export const useRemoveUser = (id, deleteUser, onError) => {
     const removeUser = async () => {
         const response = await apiPeople.delete(`${source}/${id}`);
         return response.data;
     }
-    return useMutation(removeUser)
+    return useMutation(removeUser, { onSuccess: deleteUser, onError })
 }
 
 // *Put people
-export const useUpdateUser = (id) => {
+export const useUpdateUser = (id, toastUpdate, onError) => {
     const updateUser = async (editData) => {
         const response = await apiPeople.put(`${source}/${id}`, editData);
         return response.data;
     }
-    return useMutation(updateUser)
+    return useMutation(updateUser, { onSuccess: toastUpdate, onError })
 }
 
 // * HISTORY
 
 // *GET History User Details by ID
-export const useHistoryUserDetails = (userId) => {
+export const useHistoryUserDetails = (userId, historyToast, onError) => {
     const getHistory = async ({ queryKey }) => {
         const id = queryKey[1];
         const response = await apiPeople.get(`${source}/${id}${history}`);
@@ -81,6 +81,10 @@ export const useHistoryUserDetails = (userId) => {
                     ...el, changedAt: Moment(el.changedAt).format("lll"),
                 }
             }),
+            onSuccess: historyToast,
+            onError,
+            // enabled: true
+
         }
     )
 }
