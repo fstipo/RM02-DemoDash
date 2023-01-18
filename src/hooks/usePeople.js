@@ -2,8 +2,9 @@ import axios from "axios";
 import Moment from 'moment';
 import { useQuery, useMutation } from "react-query";
 
+
 // *URL
-const url = "https://es-demo.azurewebsites.net/v1"
+const url = "https://es-demo.azurewebsites.net/v12"
 const apiPeople = axios.create({ baseURL: url });
 const source = "/People";
 const history = "/history?from=1.1.1990";
@@ -11,7 +12,7 @@ const history = "/history?from=1.1.1990";
 
 // *PEOPLE
 // *GET People 
-export const usePeopleData = (onError) => {
+export const usePeopleData = (onError, onSuccess) => {
     const getPeople = async () => {
         const response = await apiPeople.get(source);
         return response.data;
@@ -22,7 +23,8 @@ export const usePeopleData = (onError) => {
                 ...el, changedAt: Moment(el.changedAt).format("lll"),
             }
         }),
-        onError: onError
+        onError,
+        onSuccess
     });
 }
 
@@ -37,12 +39,11 @@ export const useUserDetails = (userId) => {
 }
 
 // *POST people
-export const useAddUser = () => {
+export const useAddUser = (onSuccess, onError) => {
     const addUser = async (newUser) => {
-        const response = await apiPeople.post(source, newUser);
+        const response = await apiPeople.post(source, newUser, { onSuccess, onError });
         return response.data;
     }
-
     return useMutation(addUser)
 }
 
@@ -88,4 +89,3 @@ export const useHistoryUserDetails = (userId) => {
 
 
 
-// Test

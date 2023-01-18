@@ -1,6 +1,8 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import NoPage from '../../NoPage';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { usePeopleData } from '../../../hooks/usePeople';
 
@@ -9,7 +11,7 @@ import { gridColumnsTemplate } from "../data/gridColumnsTemplate"
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import { ThreeDots } from "react-loader-spinner"
-import { Circles } from "react-loader-spinner"
+import { toastInitialOptions as toastOptions } from "../../../data/data"
 
 // * navigate
 import { useNavigate } from "react-router-dom"
@@ -20,13 +22,15 @@ const PeopleGrid = () => {
   const gridRef = useRef(null);
   const navigate = useNavigate();
 
-  const onError = () => <div className='display-1'>Error</div>
+  const onError = (err) => toast.error(err.message, toastOptions);
+  const onSuccess = () => toast.success("Hey bato", toastOptions)
+
   const {
     isLoading,
     data: people,
     error,
     isError,
-  } = usePeopleData(onError);
+  } = usePeopleData(onError, onSuccess);
 
   const onRowSelected = useCallback((event) => {
     const selectedUserId = event.node.data.id;
@@ -55,13 +59,12 @@ const PeopleGrid = () => {
         {isLoading && <span className='mx-5'><ThreeDots height={30}
           color="#ccc"
           ariaLabel="three-dots-loading" /></span>}
-        {isError && <span className="ms-5 fw-bold">{error.message}</span>}
+
       </div>
       <div
         className="ag-theme-alpine"
         style={{ height: "700px", width: '100%' }}
       >
-
         <AgGridReact
           ref={gridRef}
           rowData={people}
@@ -78,10 +81,8 @@ const PeopleGrid = () => {
   // * RENDER
   return (
     <>
-
+      <ToastContainer />
       {htmlTemplate}
-      {/* {htmlTemplate}
-      {isError && <NoPage error={error.message} />} */}
     </>
   );
 };

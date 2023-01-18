@@ -1,18 +1,8 @@
 import React from 'react'
-import { Toast, ToastContainer } from 'react-bootstrap'
+import { ToastContainer, toast } from 'react-toastify';
 
-const ToastComponent = () => {
-  return (
-    <Toast>
-      <ToastContainer className="bg-danger position-relative">
-        <Toast.Header>
-          <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-          <strong className="me-auto">Deleting profile success</strong>
-        </Toast.Header>
-        <Toast.Body className="text-white">User deleted successfully.</Toast.Body>
-      </ToastContainer>
-    </Toast>
-  )
-}
+const createToast = (label, message) => toast.success(message,)
 
-export default ToastComponent
+const Toast = (message, type) => toast({ message }, { type: { type } });;
+
+export default Toast
