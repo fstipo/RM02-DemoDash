@@ -1,6 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import NoPage from '../../NoPage';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -23,14 +22,12 @@ const PeopleGrid = () => {
   const navigate = useNavigate();
 
   const onError = (err) => toast.error(err.message, toastOptions);
-  const onSuccess = () => toast.success("Hey bato", toastOptions)
+
 
   const {
     isLoading,
     data: people,
-    error,
-    isError,
-  } = usePeopleData(onError, onSuccess);
+  } = usePeopleData(onError);
 
   const onRowSelected = useCallback((event) => {
     const selectedUserId = event.node.data.id;

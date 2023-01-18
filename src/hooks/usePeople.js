@@ -4,7 +4,7 @@ import { useQuery, useMutation } from "react-query";
 
 
 // *URL
-const url = "https://es-demo.azurewebsites.net/v12"
+const url = "https://es-demo.azurewebsites.net/v1"
 const apiPeople = axios.create({ baseURL: url });
 const source = "/People";
 const history = "/history?from=1.1.1990";

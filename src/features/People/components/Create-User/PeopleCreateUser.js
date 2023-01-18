@@ -6,36 +6,12 @@ import { useNavigate } from "react-router-dom"
 import Header from '../../../../components/UI/Header';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { toastInitialOptions as toastOptions } from "../../../../data/data"
 
 const PeopleCreateUser = () => {
-  const [showCreateUserToast, setShowCreateUserToast] = useState(false);
-  const showCreateUserToastHandler = () => setShowCreateUserToast(!showCreateUserToast);
   const navigate = useNavigate();
-
-
-  const onError = (err) => {
-    return toast.error(err?.message, {
-      position: "top-center",
-      autoClose: 5000,
-      //autoClose: false,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-      style: {
-        border: '1px solid #000',
-        padding: '16px',
-        color: '#fff',
-        background: "#ff00ff",
-      },
-      iconTheme: {
-        primary: 'white',
-        secondary: 'green',
-      },
-    });
-  }
+  const onError = (err) => toast.error(err?.message, toastOptions);
+  const onSuccess = (err) => toast.success("User profile is successfully created!", toastOptions);
 
   const { mutate: addUser
   } = useAddUser();
@@ -73,8 +49,7 @@ const PeopleCreateUser = () => {
       }
 
       if (values.id !== "" && values.name !== "" && values.sector !== "" && values.id !== 5) {
-        setShowCreateUserToast(!showCreateUserToast)
-        addUser(newUser, { onError });
+        addUser(newUser, { onError, onSuccess });
       }
     }
   });
@@ -86,16 +61,6 @@ const PeopleCreateUser = () => {
         <div className="row justify-content-center align-items-center">
           <ToastContainer />
           <div className="col-sm-9  col-10">
-            <div className='position-relative me-5'>
-              <Toast show={showCreateUserToast} onClose={showCreateUserToastHandler} delay={3000} autohide bg="primary text-white" className='position-absolute'>
-                <Toast.Header className='fs-6'>
-                  <i className="bi bi-person-check-fill me-3"></i>
-                  <strong className="me-auto">Create New User </strong>
-                  <small className="text-muted">just now</small>
-                </Toast.Header>
-                <Toast.Body>User profile is successfully created!</Toast.Body>
-              </Toast>
-            </div>
             <form className="file-upload" onSubmit={formik.handleSubmit}>
               <div className="row my-2 gx-5">
                 <div className="mb-2">
