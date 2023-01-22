@@ -19,10 +19,24 @@ const PeopleCreateUser = () => {
     }
   }
 
-  const onSuccess = () => toast.success("User profile is successfully created!", toastOptions);
+  const onSuccess = () => {
+    setTimeout(() => {
+      navigate("/people");
+    }, 6000);
+    return toast.success("User profile is successfully created!", toastOptions);
+
+  };
 
   const { mutate: addUser
   } = useAddUser();
+
+  useEffect(() => {
+    if (addUser.isSuccess) {
+      setTimeout(() => {
+        navigate("/people");
+      }, 2000);
+    }
+  }, [addUser.isSuccess, navigate]);
 
   const formik = useFormik({
     initialValues: {
@@ -56,7 +70,7 @@ const PeopleCreateUser = () => {
         "sector": values.sector,
       }
 
-      if (values.id !== "" && values.name !== "" && values.sector !== "" && values.id !== 5) {
+      if (values.id !== "" && values.name !== "" && values.sector !== "") {
         addUser(newUser, { onError, onSuccess });
       }
     }
@@ -141,3 +155,14 @@ const PeopleCreateUser = () => {
 };
 
 export default PeopleCreateUser;
+
+
+
+
+
+
+
+
+
+
+

@@ -33,11 +33,13 @@ const PeopleDetails = () => {
   const { mutateAsync: removeUser } = useRemoveUser(id, deleteUser, onError);
 
   const deleteHandler = () => {
+    setTimeout(() => {
+      navigate("/people");
+    }, 6000);
     removeUser({ deleteUser, onError })
   }
-  const queryClient = new QueryClient;
+
   const historyHandler = async () => {
-    // await queryClient.refetchQueries({ queryKey: ['history-details'], type: 'active' })
     setShowHistory(!showHistory);
     setUserHistory(historyDetails);
   };
