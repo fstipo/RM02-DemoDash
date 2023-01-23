@@ -14,7 +14,7 @@ import { useUpdateUser } from '../../../hooks/usePeople';
 
 const PeopleDetails = () => {
   const [showHistory, setShowHistory] = useState(false);
-  const [userHistory, setUserHistory] = useState("");
+  // const [userHistory, setUserHistory] = useState("");
 
   // *Navigate
   const { id } = useParams();
@@ -23,11 +23,11 @@ const PeopleDetails = () => {
   const onError = (err) => toast.error(err?.message, toastOptions);
   const deleteUser = () => toast.success("User profile is successfully deleted!", toastOptions);
   const toastUpdate = () => toast.info("User profile is updated!", toastOptions);
-  const historyToast = () => toast.success("HISTORY!", toastOptions);
+  const historyToast = () => toast.success("HISTORY!!!", toastOptions);
 
   // *React Query
   const { data: people } = useUserDetails(id, onError);
-  const { data: historyDetails } = useHistoryUserDetails(id, historyToast, onError);
+  const { data: historyDetails, refetch } = useHistoryUserDetails(id, historyToast, onError);
   const { mutateAsync: updateUser } = useUpdateUser(id, toastUpdate, onError);
   const { mutateAsync: removeUser } = useRemoveUser(id, deleteUser, onError);
 
@@ -38,11 +38,12 @@ const PeopleDetails = () => {
     removeUser({ deleteUser, onError })
   }
 
-  const historyHandler = async () => {
+  const historyHandler = () => {
     setShowHistory(!showHistory);
-    setUserHistory(historyDetails);
+    if (!showHistory) {
+      refetch();
+    }
   };
-
   const formik = useFormik({
     initialValues: {
       name: people?.name || "",
@@ -173,7 +174,7 @@ const PeopleDetails = () => {
                     <button type="submit" className="btn btn-outline-secondary">
                       Update
                     </button>
-                    <button type="button" className="btn btn-outline-secondary" onClick={historyHandler} history={userHistory}>
+                    <button type="button" className="btn btn-outline-secondary" onClick={historyHandler} history={historyDetails}>
                       History
                     </button>
                     <button type="button" className="btn btn-outline-secondary" onClick={
@@ -187,7 +188,7 @@ const PeopleDetails = () => {
           </div>
         </div>
         <div>
-          {showHistory && <DetailsHistory history={userHistory} id={id} />}
+          {showHistory && <DetailsHistory history={historyDetails} id={id} />}
         </div>
       </div >
     </div>

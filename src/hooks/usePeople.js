@@ -86,21 +86,11 @@ export const useHistoryUserDetails = (userId, historyToast, onError) => {
             }),
             onSuccess: historyToast,
             onError,
-            // enabled: true
-
+            enabled: false
         }
     )
 }
 
 
-
-
-
-
-
-
-
-
-
-
+// People in moment
 // https://es-demo.azurewebsites.net/v1/People/history?inMoment=2023-01-23T09%3A07%3A38.597Z

@@ -56,6 +56,16 @@ const PeopleGrid = () => {
         {isLoading && <span className='mx-5'><ThreeDots height={30}
           color="#ccc"
           ariaLabel="three-dots-loading" /></span>}
+        <a
+          className="btn btn-primary d-block align-items-start mb-2 ms-2"
+          role="button"
+          type="button"
+          onClick={() => {
+            // navigate("/people/create-user");
+          }}
+        >
+          History
+        </a>
 
       </div>
       <div
@@ -78,7 +88,6 @@ const PeopleGrid = () => {
   // * RENDER
   return (
     <>
-      {/* <ToastContainer /> */}
       {htmlTemplate}
     </>
   );
