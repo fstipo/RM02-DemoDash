@@ -3,15 +3,15 @@ import Moment from 'moment';
 import { useQuery, useMutation } from "react-query";
 
 // *URL
-// const url = "https://es-demo.azurewebsites.net/v1"
-// const apiPeople = axios.create({ baseURL: url });
-// const source = "/People";
+const url = "https://es-demo.azurewebsites.net/v1"
+const apiPeople = axios.create({ baseURL: url });
+const source = "/People";
 const history = "/history?from=1.1.1990";
 // const source = "/Assets"
 
 //* Test JSON Placeholder
-const apiPeople = axios.create({ baseURL: "https://jsonplaceholder.typicode.com" });
-const source = "/users";
+// const apiPeople = axios.create({ baseURL: "https://jsonplaceholder.typicode.com" });
+// const source = "/users";
 
 // *PEOPLE
 // *GET People 
@@ -103,3 +103,4 @@ export const useHistoryUserDetails = (userId, historyToast, onError) => {
 
 
 
+// https://es-demo.azurewebsites.net/v1/People/history?inMoment=2023-01-23T09%3A07%3A38.597Z

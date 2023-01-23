@@ -4,14 +4,13 @@ import { useFormik } from 'formik';
 import Moment from "moment"
 import DetailsHistory from './History/DetailsHistory';
 import Header from '../../../components/UI/Header';
-import { ToastContainer, toast } from 'react-toastify';
-import { toastInitialOptions as toastOptions } from '../../../data/data';
-
+import { toast } from 'react-toastify';
+import { toastInitialOptions as toastOptions } from '../data/toastOptions';
 import { useUserDetails } from '../../../hooks/usePeople';
 import { useHistoryUserDetails } from '../../../hooks/usePeople';
 import { useRemoveUser } from '../../../hooks/usePeople';
 import { useUpdateUser } from '../../../hooks/usePeople';
-import { QueryClient } from 'react-query';
+
 
 const PeopleDetails = () => {
   const [showHistory, setShowHistory] = useState(false);
@@ -86,7 +85,7 @@ const PeopleDetails = () => {
   return (
     <div>
       <Header name="People" icon="people" />
-      <ToastContainer />
+
       <div className="container card">
         <div className="row ms-5">
           <div className="col-12">

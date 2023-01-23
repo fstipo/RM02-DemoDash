@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { usePeopleData } from '../../../hooks/usePeople';
@@ -10,7 +10,7 @@ import { gridColumnsTemplate } from "../data/gridColumnsTemplate"
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import { ThreeDots } from "react-loader-spinner"
-import { toastInitialOptions as toastOptions } from "../../../data/data"
+import { toastInitialOptions as toastOptions } from "../data/toastOptions"
 
 // * navigate
 import { useNavigate } from "react-router-dom"
@@ -78,7 +78,7 @@ const PeopleGrid = () => {
   // * RENDER
   return (
     <>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       {htmlTemplate}
     </>
   );

@@ -3,9 +3,10 @@ import { useFormik } from 'formik';
 import { useAddUser } from '../../../../hooks/usePeople';
 import { useNavigate } from "react-router-dom"
 import Header from '../../../../components/UI/Header';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { toastInitialOptions as toastOptions } from "../../../../data/data"
+// import { toastInitialOptions as toastOptions } from "../../../../data/data"
+import { toastInitialOptions as toastOptions } from '../../data/toastOptions';
 
 const PeopleCreateUser = () => {
   const navigate = useNavigate();
@@ -81,7 +82,7 @@ const PeopleCreateUser = () => {
       <Header name="People" icon="people" />
       <div className="container card">
         <div className="row justify-content-center align-items-center">
-          <ToastContainer />
+          {/* <ToastContainer /> */}
           <div className="col-sm-9  col-10">
             <form className="file-upload" onSubmit={formik.handleSubmit}>
               <div className="row my-2 gx-5">
